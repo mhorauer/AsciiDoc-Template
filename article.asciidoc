@@ -1,0 +1,248 @@
+AsciiDoc & Latex
+=================
+:author: Martin Horauer
+:doctype: article
+:toc: right
+:icons: font
+:data-uri:
+:lang: en
+:date: 2014
+:encoding: iso-8859-1
+:src: c
+:docinfo1:
+
+ifdef::backend-latex[]
+:leveloffset: -1
+endif::backend-latex[]
+
+[preface]
+== Preface
+
+Prerequisites for this chapter are
+
+* familiarity with the C programming language and how to build programs on the command-line
+* electronic fundamentals like know how to dimension small circuits
+* ...
+
+When working through this chapter you shall be able to
+
+* efficiently read and understand data-sheets and user-manuals of micro-controllers
+* know about registers and how to access them
+* ...
+
+
+== Page Layout
+
+
+Arsclassica-{LaTeX} is an article style, thus using AsciiDoc one will need to stick to the top-level heading styles set with `==`, `===`, etc. respectively.
+
+(((heading)))
+(((heading,levels)))
+(((heading,levels,section)))
+(((heading,levels,subsection)))
+
+=== Images and Figures
+
+(((figures)))
+Expect the _usual_ quirks with figures in {LaTeX} and all word processing tools. You'll eventually need to move the figures around in order to get an optimal placement.
+
+[[figsine]]
+.This graph shows y = sin x from about x = [-10, 10]. _Notice that this figure takes up the full page width._
+image::source/sine.{imgext}[scale=".8"]
+
+Figure <<figsine,1>> spans the entire page width by default. The figures caption is derived from the image block title. The figure itself set using `image::sine.{imgext}[]`.
+
+
+In order to scale figures you may use the +scale+  or the +width+ parameter, e.g.:
+
+........
+.Hilbercurves 115% scaled
+image::source/hilbertcurves.{imgext}[scale=".115"]
+........
+(((figures,scaling)))
+
+.Hilbercurves 115% scaled
+image::source/hilbertcurves.{imgext}[scale="1.15"]
+
+
+
+=== Code Listings
+
+Code snippets are set using the +lstlisting+ package. The following example illustrates the respective output of the following AsciiDoc snippet:
+
+....
+.Hello World Example
+[source,c,numbered]
+----
+\include::source/hello.c[]
+----
+....
+
+In this case the parameter `c` is passed on to the +lstlisting+ package to select the appropriate language.
+
+.Hello World Example
+[source,c,numbered]
+----
+include::source/hello.c[]
+----
+
+=== Verbatim Input
+
+To describe commands entered at a terminal prompt we adapt a +verbatim+ environment. Respective code is set between multiple dots and results in an output as in the following example. 
+
+.......
+% ls
+tufte.txt latex.conf
+.......
+
+
+=== Tables
+
+
+The following AsciiDoc snippet generates table <<tab1,1>>. 
+
+........
+.Table Example
+[format="csv",options="header",frame="all",colspecs="clllr"]
+|===================================================
+ID,Customer Name,Contact Name,Phone
+\include::source/data.csv[]
+|===================================================
+........
+
+Here the parameter +colspecs+ specifies the alignment of the columns (c ... center, l ... left, r ... right). Vertical lines can be drawn using a `|` between colspecs arguments; with the used +booktabs+ package, however, this usually renders an inferior looking output. The argument +frame+ supports either +all+ or +topbot+ as values. The first one renders three horizontal lines as illustrated in Tab. <<tab1,1>>, whereas the latter only renders a horizontal line above and below the table.
+Finally, using the value +header+ for the argument +options+ draws the first line in bold letters.
+
+[[tab1]]
+.Table Example
+[format="csv",options="header",frame="all",colspecs="clllr"]
+|===================================================
+ID,Customer Name,Contact Name,Phone
+include::source/data.csv[]
+|===================================================
+
+== Miscellaneous
+
+This section presents several items like admonitions, quotes, etc.
+
+=== Admonitions
+
+
+Admonitions are small paragraphs that try to highlight something. Often admonitions are set along with a small icon and try to state either a +NOTE+,
++TIP+, +IMPORTANT+, +WARNING+, or +CAUTION+ statement. +
+
+["NOTE"]
+Place the admonition just below the text where you want the block to show up.
+
+
+The following AsciiDoc code produces the admonition shown in the margin.
+.........
+["NOTE"]
+Place the admonition just below the text where you 
+want the block to show up.
+.........
+
+
+For +TIP+, +IMPORTANT+, +WARNING+, or +CAUTION+ you'll get different icons. All icons reside in the +images/icons/+ folder are included as _.pdf_ images into the {LaTeX} output.
+
+=== Quotes
+
+
+In the following we show a simple quotation from Johann Wolfgang von Goethe. 
+
+[quote, Johann Wolfgang von Goethe]
+____
+There is nothing more dreadful than imagination without taste.
+____
+
+It is set in AsciiDoc using underscores:
+.......
+[quote, Johann Wolfgang von Goethe]
+____
+There is nothing more dreadful than imagination without taste.
+____
+.......
+
+=== Links
+
+Frequently usedf links are, e.g., URLs like http://www.horauer.at/[horauer.at] or mailto references (e.g. mailto:mhorauer@gmail.com[email Martin Horauer]). In AsciiDoc simply write:
+
+....
+http://www.horauer.at/[horauer.at]
+mailto:mhorauer@gmail.com[email Martin Horauer]
+....
+
+For the use of local references one uses [[anchors]] (set using `[[anchors]]`) and references (set using `<<anchor,ref>>`) where +ref+ is the actual displayed <<anchor,ref>> of the respective hyperlink.
+
+
+=== Bibliographies
+
+In order to add a bibliography add a block like the following one after the body of the text:
+
+.....
+[bibliography]
+- [[[tufte01]]] Edward R. Tufte.
+'The Visual Display of Quantitative Information'. 
+Graphics Press, Cheshire, Connecticut, 2001.
+ISBN 0-9613921-4-2.
+.....
+
+["CAUTION"]
+The +natbib+ style used generates a warning message that can be safely ignored.
+
+=== Indices
+
+In order to generate an index enclose selected words within the text in double parentheses. When you want to place index entries at pages, that are hidden in the text, use triple parenthesis.
+Furthermore, in order to subclass index entries use commas, e.g.:
+
+.....
+((heading))            # index entry where heading is visible in the text
+(((heading)))          # index entry where heading is invisible
+(((heading,levels)))   # invisible index entry with a sub-element
+.....
+
+In order to insert the index create an empty index section at the end of the document, e.g.:
+
+.....
+[index]
+== Index
+
+////////////////////////////////////////////////////////////////
+The index is normally left completely empty, it's contents being
+generated automatically by the makeindex command.
+////////////////////////////////////////////////////////////////
+.....
+
+Finally, to generate the index entries run:
+
+.....
+% pdflatex tufte
+% makeindex tufte
+% pdflatex tufte
+.....
+
+ifndef::backend-tufte[]
+== References
+endif::backend-tufte[]
+[bibliography]
+- [[[tufte01]]] Edward R. Tufte.
+'The Visual Display of Quantitative Information'. 
+Graphics Press, Cheshire, Connecticut, 2001.
+ISBN 0-9613921-4-2. +
+
+- [[[tufte06]]] Edward R. Tufte. 'Beautiful Evidence'. 
+Graphics Press, Cheshire, Connecticut, 2006.
+ISBN 0-9613921-7-7.
+
+ifdef::backend-latex[]
+[index]
+== Index
+
+////////////////////////////////////////////////////////////////
+The index is normally left completely empty, it's contents being
+generated automatically by the makeindex command.
+////////////////////////////////////////////////////////////////
+endif::backend-latex[]
+
+
+

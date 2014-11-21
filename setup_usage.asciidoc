@@ -1,0 +1,376 @@
+Setup & Usage
+=============
+:author: Martin Horauer
+:doctype: article
+:toc: right
+:icons: font
+:data-uri:
+:lang: en
+:date: 2014
+:encoding: iso-8859-1
+:src: c
+:docinfo1:
+
+== Installation
+
+The following setup describes the steps under Fedora.
+
+=== AsciiDoc
+....
+$ mkdir $HOME/bin
+$ cd $HOME/bin
+$ hg clone -r 8.6.9 https://asciidoc.googlecode.com/hg/ asciidoc-8.6.9
+$ echo "export PATH=$PATH:$HOME/bin" >> $HOME/.bashrc
+$ ln -s $HOME/bin/asciidoc-8.6.9/asciidoc.py $HOME/bin/asciidoc
+$ ln -s $HOME/bin/asciidoc-8.6.9/a2x.py $HOME/bin/a2x
+$ echo ">>>>>>>>>>>>>>>> reopen your bash !!"
+....
+
+*Installation Problems* +
+
+If you encounter a problem like:
+
+....
+asciidoc: WARNING: article.txt: line 4: missing section: [source-filter-style]
+asciidoc: FAILED: article.txt: line 4: malformed section entry: template::[source-filter-style]
+....
+
+To fix this problem add the following code after line 90 in +~/bin/asciidoc-8.6.9/filters/source/source-higlight-filter.conf+:
+
+.....
+################################################################################
+# LaTeX Backend
+################################################################################
+ifdef::basebackend-latex[]
+[source-filter-style]
+endif::basebackend-latex[]
+.....
+
+=== AsciiDoctor
+
+....
+$ # install ASCIIDOCTOR
+$ sudo yum install -y rubygem-asciidoctor
+$ sudo yum install -y python-pygments
+$ sudo yum install -y ruby-devel
+$ gem install pygments.rb
+....
+
+=== LaTeX
+
+Furthermore a comprehensive `texlive` installation is required.
+
+....
+$ sudo yum install -y texlive-IEEEtran texlive-acronym texlive-adjustbox texlive-ae texlive-algorithm2e texlive-algorithms texlive-amscls texlive-amsfonts texlive-amsmath texlive-anysize texlive-arsclassica texlive-attachfile texlive-auto-pst-pdf texlive-avantgar texlive-babel texlive-babel-english texlive-babel-german texlive-babel-latin texlive-babelbib texlive-base texlive-bbding texlive-beamer texlive-bera texlive-beton texlive-bibtex texlive-bigfoot texlive-bold-extra texlive-bookman texlive-booktabs texlive-breakurl texlive-caption texlive-carlisle texlive-changepage texlive-charter texlive-chngcntr texlive-cite texlive-classicthesis texlive-cm texlive-cm-super texlive-cmap texlive-cmextra texlive-collectbox texlive-collection-basic texlive-collection-fontsrecommended texlive-collection-latex texlive-collection-latexrecommended texlive-colortbl texlive-courier texlive-crop texlive-csquotes texlive-ctable texlive-currfile texlive-curves texlive-doublestroke texlive-dtk texlive-dvipdfmx texlive-dvipdfmx-def texlive-dvipng texlive-dvips texlive-ec texlive-eepic texlive-enctex texlive-endfloat texlive-enumitem texlive-environ texlive-eso-pic texlive-etex texlive-etex-pkg texlive-etoolbox texlive-euenc texlive-euler texlive-eulervm texlive-euro texlive-eurosym texlive-extsizes texlive-fancybox texlive-fancyhdr texlive-fancyref texlive-fancyvrb texlive-filecontents texlive-filehook texlive-filemod texlive-finstrut texlive-fix2col texlive-float texlive-fontaxes texlive-fontspec texlive-footmisc texlive-fp texlive-fpl texlive-framed texlive-gentium-tug texlive-gentium-tug-doc texlive-geometry texlive-german texlive-gincltex texlive-glyphlist texlive-graphics texlive-gsftopk texlive-helvetic texlive-hyperref texlive-hyph-utf8 texlive-hyphen-base texlive-ifetex texlive-ifluatex texlive-ifmtarg texlive-ifoddpage texlive-ifplatform texlive-iftex texlive-ifxetex texlive-imakeidx texlive-index texlive-interfaces texlive-isodate texlive-jknapltx texlive-kastrup texlive-koma-script texlive-kpathsea texlive-l3experimental texlive-l3kernel texlive-l3packages texlive-latex texlive-latex-bin texlive-latex-bin-bin texlive-latex-fonts texlive-latexconfig texlive-libertine texlive-lineno texlive-lipsum texlive-listings texlive-lm texlive-lm-math texlive-ltabptch texlive-ltxmisc texlive-lua-alt-getopt texlive-lualatex-math texlive-luaotfload texlive-luatex texlive-luatexbase texlive-ly1 texlive-makeindex texlive-marginnote texlive-marvosym texlive-mathabx texlive-mathabx-type1 texlive-mathpazo texlive-mdwtools texlive-memoir texlive-metafont texlive-metalogo texlive-mflogo texlive-mfnfss texlive-mfware texlive-mh texlive-microtype texlive-misc texlive-moreverb texlive-mparhack texlive-mptopdftexlive-ms texlive-multido texlive-multirow texlive-mweights texlive-natbib texlive-ncctools texlive-ncntrsbk texlive-ntgclass texlive-oberdiek texlive-overpic texlive-palatino texlive-paralist texlive-parallel texlive-parskip texlive-path texlive-pbox texlive-pdfcrop texlive-pdfcrop-bin texlive-pdfjam texlive-pdfjam-bin texlive-pdfpages texlive-pdftex texlive-pdftex-def texlive-pgf texlive-pgf-doc texlive-pgfgantt texlive-pgfopts texlive-pgfplots texlive-placeins texlive-plain texlive-powerdot texlive-psfrag texlive-pslatex texlive-psnfss texlive-pspicture texlive-pst-3d texlive-pst-blur texlive-pst-coil texlive-pst-eps texlive-pst-fill texlive-pst-grad texlive-pst-math texlive-pst-node texlive-pst-pdf texlive-pst-pdf-bin texlive-pst-plot texlive-pst-slpe texlive-pst-text texlive-pst-tree texlive-pstricks texlive-pstricks-add texlive-pxfonts texlive-qstest texlive-rcs texlive-realscripts texlive-relsize texlive-rotating texlive-rsfs texlive-sansmath texlive-sansmathaccent texlive-sauerj texlive-scheme-basic texlive-section texlive-sectsty texlive-seminar texlive-sepnum texlive-setspace texlive-showexpl texlive-soul texlive-standalone texlive-subfig texlive-subfigure texlive-substr texlive-supertabular texlive-svn-prov texlive-symbol texlive-tabulary texlive-tetex texlive-tetex-bin texlive-tex texlive-tex-gyre texlive-tex-gyre-math texlive-texconfig texlive-texconfig-bin texlive-texlive-common-doc texlive-texlive-en-doc texlive-texlive-msg-translations texlive-texlive-scripts texlive-texlive-scripts-bin texlive-texlive.infra texlive-textcase texlive-threeparttable texlive-thumbpdf texlive-thumbpdf-bin texlive-ticket texlive-tikz-timing texlive-times texlive-tipa texlive-titlepic texlive-titlesec texlive-tocbibind texlive-tocloft texlive-tools texlive-trimspaces texlive-tufte-latex texlive-txfonts texlive-type1cm texlive-typehtml texlive-ucs texlive-ulem texlive-underscore texlive-unicode-math texlive-upquote texlive-url texlive-utopia texlive-varwidth texlive-wasy texlive-wasysym texlive-wrapfig texlive-xcolor texlive-xdvi texlive-xetex texlive-xetex-def texlive-xetexconfig texlive-xifthen texlive-xkeyval texlive-xkeyval-doc texlive-xltxtra texlive-xpatch texlive-xstring texlive-xunicode texlive-yfonts texlive-zapfchan texlive-zapfding 
+....
+
+== Template Usage
+
+Edit the `do.sh` file and set the `SRC` variable to point to your ASCIIDOC source file. 
+
+NOTE: Do not add the file-suffix. The script assumes that ASCIIDOC files use a _.asciidoc_ file-suffix.
+
+To generate a PDF output run:
+
+....
+$ ./do.sh pdf article
+....
+
+[TIP]
+This templates supports http://www.ctan.org/tex-archive/macros/latex/contrib/arsclassica[Ars-Classica] and https://code.google.com/p/tufte-latex/[Tufte] Latex backends - comment and uncomment the respective part in the +do.sh+ script.
+
+To generate HTML output run:
+
+....
+$ ./do.sh html article
+....
+
+[TIP]
+You may adapt and/or select a different CSS stylesheet - see +styles+ subfolder. Checkout the +do.sh+ script. Furthermore, edit the file +docinfo-footer.html+ to adapt the HTML footer page.
+
+To clean-up intermediate files simply run:
+
+....
+$ ./do.sh
+....
+
+
+== AsciiDoc Quirks
+
+Asciidoc sometimes has problems to render a list when figures occur in the list, i.e.:
+
+----
+* Item 1
+** Item 1.1
+*** Item 1.1.1
+*** Item 1.1.2
+
+.Optional Title 1
+image::img/testpic1.pdf}["Alt Title 1",width=300,align="center"]
+
+*** Item 1.1.3
+*** Item 1.1.4
+** Item 1.2
+*** Item 1.2.1
+**** Item 1.2.1.1
+
+.Optional Title 2
+image::img/testpic2.pdf}["Alt Title 2",width=300,align="center"]
+
+**** Item 1.2.1.2
+** Item 1.3
+----
+
+
+This problem especially occurs in long lists. To deal with this problem, just add a +++ before each figure:
+
+----
+* Item 1
+** Item 1.1
+*** Item 1.1.1
+*** Item 1.1.2
+
++
+.Optional Title 1
+image::img/testpic1.pdf}["Alt Title 1",width=300,align="center"]
+
+*** Item 1.1.3
+*** Item 1.1.4
+** Item 1.2
+*** Item 1.2.1
+**** Item 1.2.1.1
+
++
+.Optional Title 2
+image::img/testpic2.pdf}["Alt Title 2",width=300,align="center"]
+
+**** Item 1.2.1.2
+** Item 1.3
+----
+
+
+=== General File names with Asterisks
+
+When using general file names with asterisks, i.e. '*.txt', asciidoc acts oddly.
+As long as there is just one such file name in the paragraph, everything works fine. But as soon as there are more than one such file names in the paragraph, asciidocs starts to render the paragraph staring from the first file name wrong. 
+
+
+When using only one file name, i.e. '*.txt', everything works fine.
+
+But when using more then one, i.e. '*.txt' and '*.log', asciidoc starts to render the text wrong.
+
+
+To deal with this strange behavior, just escape the asterisks of all file names except the last one, i.e.:
+
+----
+But when using more then one, i.e. '\*.txt' and '*.log', you have to escape the first asterisk.
+
+This also works with more than one, like '\*.abc', '\*.def', '\*.ghi' and '*.jkl'.
+----
+
+
+The asciidoc-backend which is used by the wiki behaves a little bit different. To use such _general_ file names in the wiki, only every odd number of asterisks (in the file names) have to be escaped:
+
+----
+This also works with more than one, like '\*.abc', '*.def', '\*.ghi' and '*.jkl'.
+----
+
+This also works with more than one, like '\*.abc', '*.def', '\*.ghi' and '*.jkl'.
+
+== Ascii-Art
+
+Asciiart images can be direclty used in asciidoc documents via _block-listings_.
+To render these images a number of scripts are available, i.e.:
+
+* <<ditaa,Ditaa>>
+* <<aafigure,Aafigure>>
+* <<shaape,Shaape>>
+* http://www.graphviz.org/[Graphviz]
+* http://www.mcternan.me.uk/mscgen/[Mscgen]
+
+
+To ease the creation of ascii-art images, there are a few graphical editor avaiable, i.e.:
+
+* http://search.cpan.org/dist/App-Asciio/lib/App/Asciio.pm[Asciio]
+
+This howto provides information on how to setup the asciiart filter to be used in asciidoc.
+
+
+[[ditaa]]
+=== Ditaa
+
+http://ditaa.sourceforge.net/[Ditaa] is a small but powerful commandline-tool written in Java that converts a asciiart image into a proper bitmap graphic. To use Ditaa in asciidoc the filter written by Henrik Maier can be used:
+
+http://wiki.asciidoc-ditaa-filter.googlecode.com/hg/asciidoc-ditaa-readme.html
+
+
+In the asciidoc-config file the following lines have to be added:
+----
+###################################################################### DITAA ###
+#
+[ditaa-filter-style]
+ditaa-style=template="ditaa-block",subs=(),posattrs=("style","target"),filter='ditaa2img.py {verbose?-v} -o "{outdir={indir}}/{imagesdir=}{imagesdir?/}{target}"{scaling? --scale {scaling}}{tabs? --tabs {tabs}}{no-antialias-option? --no-antialias}{no-separation-option? --no-separation}{no-shadows-option? --no-shadows}{round-corners-option? --round-corners} -'
+
+[blockdef-listing]
+template::[ditaa-filter-style]
+
+[paradef-default]
+template::[ditaa-filter-style]
+
+[ditaa-block]
+template::[filter-image-blockmacro]
+
+################################################################################
+----
+
+Before Ditaa can be used it first have to be installed (refer to the Ditaa project page) and the following files must be available:
+
+* '/bin/ditaa2img.py'
+* '/usr/bin/ditaa0_9.jar'
+
+
+After successful installation and corresponding adaption of the conf-file, ascii-art images can be used in the asciidoc file as follows:
+
+
+....
+["ditaa"]
+-------------------------------------------------------------------------------
+    +--------+   +-------+    +-------+
+    |        | --+ ditaa +--> |       |
+    |  Text  |   +-------+    |diagram|
+    |Document|   |!magic!|    |       |
+    |     {d}|   |       |    |       |
+    +---+----+   +-------+    +-------+
+        :                         ^
+        |       Lots of work      |
+        +-------------------------+
+-------------------------------------------------------------------------------
+....
+
+or
+
+....
+["ditaa"]
+-------------------------------------------------------------------------------
++---------+
+| cBLU    |
+|         |
+|    +----+
+|    |cPNK|
+|    |    |
++----+----+
+-------------------------------------------------------------------------------
+....
+
+
+[[aafigure]]
+=== Aafigure
+
+http://pythonhosted.org/aafigure/manual.html[Aafigure] is another powerful tool written in Python. As with Ditaa, ascii-art images can be directly inserted into the asciidoc file via _block-listing_. Henrik Maier also wrote a filter to use Aafigure in asciidoc:
+
+http://wiki.asciidoc-aafigure-filter.googlecode.com/hg/asciidoc-aafigure-readme.html
+
+
+In the asciidoc-config file the following lines have to be added:
+----
+################################################################## AAFIGURE ###
+#
+[aafigure-filter-style]
+aafigure-style=template="aafigure-block",subs=(),posattrs=("style","target"),filter='aafig2img.py {verbose?-v} -o "{outdir={indir}}/{imagesdir=}{imagesdir?/}{target}" -F{format={basebackend-docbook!png}{basebackend-docbook?svg}}{fill? --fill "{fill}"}{foreground? --foreground "{foreground}"}{background? --background "{background}"}{scaling? --scale {scaling}}{aspect? --aspect {aspect}}{linewidth? --linewidth {linewidth}}{textual-option? --textual}{proportional-option? --proportional}{fixed-option? --fixed} -'
+
+[blockdef-listing]
+template::[aafigure-filter-style]
+
+[paradef-default]
+template::[aafigure-filter-style]
+
+[aafigure-block]
+template::[filter-image-pngsvg-blockmacro]
+
+[filter-image-pngsvg-blockmacro]
+{target%}{counter2:target-number}
+{target%}{set2:target:{docname}__{target-number}.{format={basebackend-docbook!png}{basebackend-docbook?svg}}}
+|
+template::[image-blockmacro]
+
+################################################################################
+----
+
+
+Before Aafigure can be used it first have to be installed (refer to the Aafigure project page) and the following file must be available:
+
+* '/bin/aafig2img.py'
+
+
+After successful installation and corresponding adaption of the conf-file, ascii-art images can be used in the asciidoc file as follows:
+
+....
+["aafigure"]
+-------------------------------------------------------------------------------
+    +---------------+
+    |A box with text|
+    +---------------+
+-------------------------------------------------------------------------------
+....
+
+or
+
+....
+["aafigure",scale=0.5]
+-------------------------------------------------------------------------------
+    +---------+         +---------+     +---------+
+    |  Shape  |         |  Line   |     |  Point  |
+    +---------+         +---------+   2 +---------+
+    | draw    +<--------+ start   +----O+ x       |
+    | move    +<-+      | end     |     | y       |
+    +---------+   \     +---------+     +---------+
+                   \
+                    \   +---------+
+                     +--+ Circle  |
+                        +---------+
+                        | center  |
+                        | radius  |
+                        +---------+
+-------------------------------------------------------------------------------
+....
+
+
+[[shaape]]
+=== Shaape
+https://github.com/christiangoltz/shaape[Shaape] is also a asciiart to image converter which can be used directly in asciidoc documents. 
+
+
+The filter definition to be added in the asciidoc conf file looks like:
+----
+##################################################################### SHAAPE ###
+#
+[shaape-filter-style]
+ifndef::data-uri[]
+shaape-style=template="shaape-block",subs=(),posattrs=("style","target"),filter='shaape -o "{outdir={indir}}/{imagesdir=}{imagesdir?/}{target}" --hash {scaling? --scale {scaling}} {width? --width {width}} {height? --height {height}}-'
+endif::data-uri[]
+ifdef::data-uri[]
+shaape-style=template="shaape-block",subs=(),posattrs=("style","target"),filter='shaape -o "{indir={outdir}}/{imagesdir=}{imagesdir?/}{target}" --hash {scaling? --scale {scaling}} {width? --width {width}} {height? --height {height}}-'
+endif::data-uri[]
+
+[blockdef-listing]
+template::[shaape-filter-style]
+
+[paradef-default]
+template::[shaape-filter-style]
+
+[shaape-block]
+template::[filter-image-blockmacro]
+
+################################################################################
+----
+
+
+Unfortunately, I was not able to render more complex pictures than simple arrows:
+
+....
+["shaape"]
+----    
+< > ^ v
+----
+....
+
