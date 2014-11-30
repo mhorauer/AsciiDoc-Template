@@ -7,4 +7,4 @@ This repo holds a document template to
 * create PDF output from AsciiDoc source via the LaTeX backend
 
 [NOTE]
-The LaTeX template uses either an ars-classica style or a latex tufte style (see setup_usage.asciidoc for details). 
+The LaTeX template uses either an ars-classica style or a latex tufte style (see link:setup_usage.asciidoc[] for details). 
